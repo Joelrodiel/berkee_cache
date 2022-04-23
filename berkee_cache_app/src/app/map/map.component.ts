@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
+import { CacheService } from '../cache.service';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -43,13 +44,15 @@ export class MapComponent implements AfterViewInit {
       this.addMarkerClick.emit(e.latlng);
       const marker = L.marker([e.latlng.lat, e.latlng.lng]);
       marker.addTo(this.map);
+      this.cacheService.createCache("Testing", e.latlng.lat, e.latlng.lng);
     });
   }
   
-  constructor() { }
+  constructor(private cacheService: CacheService) { }
 
   ngAfterViewInit(): void {
     this.initMap();
+    this.cacheService.loadCaches(this.map);
   }
 
 }

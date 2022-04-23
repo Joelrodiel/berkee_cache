@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { CacheService } from './cache.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,9 +15,12 @@ import { MapComponent } from './map/map.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CacheService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

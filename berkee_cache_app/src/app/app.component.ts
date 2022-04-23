@@ -9,6 +9,5 @@ export class AppComponent {
   title = 'berkee_cache_app';
 
   addMarker($event): void {
-    console.log($event.lat, $event.lng);
   }
 }
