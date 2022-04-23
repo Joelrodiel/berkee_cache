@@ -1,8 +1,10 @@
 const express = require("express")
 const app = express()
+const cors = require("cors")
 const db = require("diskdb")
 
 app.use(express.json());
+app.use(cors({ origin: '*' }));
 db.connect("./data", ['caches']);
 
 app.get('/getCaches', function (req, res) {
@@ -11,7 +13,7 @@ app.get('/getCaches', function (req, res) {
     res.json(db.caches.find());
 });
 
-app.get('/getCaches/:id', (req, res) {
+app.get('/getCaches/:id', function (req, res) {
     const cacheId = req.params.id;
     const caches = db.caches.find({ id: cacheId });
     if (caches.length) {
