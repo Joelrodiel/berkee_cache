@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
-import { reduce } from 'rxjs';
+import { PopupService } from './popup.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CacheService {
-  endpoint: string = 'http://localhost:8081/';
+  endpoint: string = 'http://192.168.1.185:8081/';
   getCaches: string = 'getCaches';
   createCaches: string = 'newCache';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private popupService: PopupService) { }
 
   loadCaches(map: L.Map): void {
     const url = this.endpoint + this.getCaches;
@@ -23,6 +23,8 @@ export class CacheService {
         const lng = c.longitude;
 
         const marker = L.marker([lat, lng]);
+
+        marker.bindPopup(this.popupService.makeCachePopup(c));
 
         marker.addTo(map);
       }

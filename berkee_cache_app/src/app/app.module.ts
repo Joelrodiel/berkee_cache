@@ -7,6 +7,7 @@ import { MapComponent } from './map/map.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CacheService } from './cache.service';
+import { PopupService } from './popup.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CacheService } from './cache.service';
     HttpClientModule
   ],
   providers: [
-    CacheService
+    CacheService,
+    PopupService
   ],
   bootstrap: [AppComponent]
 })
