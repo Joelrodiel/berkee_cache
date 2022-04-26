@@ -1,7 +1,8 @@
 <div>
-  <app-map (addMarkerClick)="addMarker($event)"></app-map>
-  <button>Shop</button>
-  <button>Map</button>
-  <button>Account</button>
-  <p>Hello ipse ipse ipse</p>
+  <app-map></app-map>
+  <div style="bottom: 0; z-index: 1000; display: grid; grid-template-columns: auto auto auto; position: absolute; width: 100%; left: 0;">
+    <button class="menuButtons" (click)="mapButtonClick()">Shop</button>
+    <button class="menuButtons" (click)="mapButtonClick()">Map</button>
+    <button class="menuButtons">Account</button>
+  </div>
 </div>

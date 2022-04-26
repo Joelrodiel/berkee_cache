@@ -7,7 +7,8 @@ import { PopupService } from './popup.service';
   providedIn: 'root'
 })
 export class CacheService {
-  endpoint: string = 'http://192.168.1.185:8081/';
+  // endpoint: string = 'http://192.168.1.185:8081/';
+  endpoint: string = 'http://localhost:8081/';
   getCaches: string = 'getCaches';
   createCaches: string = 'newCache';
 
@@ -31,9 +32,13 @@ export class CacheService {
     });
   }
 
-  createCache(label: string, lat: number, lng: number): void {
-    this.http.post(this.endpoint + this.createCaches, { label: label, latitude: lat, longitude: lng}).subscribe({
+  createCache(label: string, lat: number, lng: number, map: L.Map): void {
+    const cache = { label: label, latitude: lat, longitude: lng}
+    this.http.post(this.endpoint + this.createCaches, cache).subscribe({
       next: _ => {
+        const marker = L.marker([lat, lng]);
+        marker.bindPopup(this.popupService.makeCachePopup(cache));
+        marker.addTo(map);
         console.log("Successfully created new Cache!");
       },
       error: error => {

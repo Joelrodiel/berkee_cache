@@ -17,6 +17,11 @@ const iconDefault = L.icon({
 });
 L.Marker.prototype.options.icon = iconDefault;
 
+const bearIcon = L.icon({
+  iconUrl: '../assets/bear.png',
+  iconSize: [35, 35],
+});
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -43,9 +48,7 @@ export class MapComponent implements AfterViewInit {
 
     this.map.on('click', e => {
       this.addMarkerClick.emit(e.latlng);
-      const marker = L.marker([e.latlng.lat, e.latlng.lng]);
-      marker.addTo(this.map);
-      this.cacheService.createCache("Testing", e.latlng.lat, e.latlng.lng);
+      this.cacheService.createCache("Testing", e.latlng.lat, e.latlng.lng, this.map);
     });
   }
   
@@ -54,6 +57,13 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
     this.cacheService.loadCaches(this.map);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.currentPosition.bind(this));
+    }
+  }
+
+  currentPosition(position: { coords: { latitude: any; longitude: any } }) {
+    L.marker([position.coords.latitude, position.coords.longitude], {icon: bearIcon}).addTo(this.map);
   }
 
 }

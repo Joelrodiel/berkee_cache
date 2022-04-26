@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.menuButtons {
+    display: block;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    height: 67px;
+}
+
+.menuButtons:hover {
+    background-color: #e6e6e6;
+}
